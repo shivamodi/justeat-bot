@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h2>Register</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="mobile" name="mobile" placeholder="Mobile Number">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="justeatemail" placeholder="Justeat Email">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="justeatpw" placeholder="Justeat Password">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+    {% include "footer.html" %}
+{% endblock %}

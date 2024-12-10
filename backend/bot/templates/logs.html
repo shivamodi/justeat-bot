@@ -1,0 +1,15 @@
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h2>Logs</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    {{ logs }}
+
+{% include "footer.html" %}
+{% endblock %}

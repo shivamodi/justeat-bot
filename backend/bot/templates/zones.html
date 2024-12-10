@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% load custom_filters %}
+
+{% block body %}
+
+    <h2>Zones Preferences</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'savezones' %}" method="post">
+        {% csrf_token %}
+        {% for zone in zones|skip_every_even %}
+        <div class="form-group">
+            <input type="hidden" name="zone_id_{{ forloop.counter0 }}" value="{{ zone }}">
+        </div>
+        {% endfor %}
+        {% for zone in zones|skip_every_odd %}
+        <div class="form-group">
+            Zone Name : {{ zone }}
+            <span style="margin-left: 40px;"><input name="zone_id_toggle_{{ forloop.counter0 }}" type="checkbox" {% if request.user.email_notif_toggle %} checked {% endif %} data-toggle="toggle"></span>
+        </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="SAVE">
+    </form>
+
+    {% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% load pinax_referrals_tags %}
+
+    <h2>Schedule</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+<!-- Range slider: -->
+<br><br>
+
+<form action="{% url 'saveschedule' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="user_id" value="{{ request.user.id }}">
+    <div>
+        <div style="padding-bottom: 10px;">Monday : {{ mon_time_from }} - {{ mon_time_to }}<span style="margin-left: 40px;"><input name="mon_time_toggle" type="checkbox" {% if request.user.mon_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="mon_time" id="sch_mon" type="text"/>
+        
+    </div>     <br><br>
+    <div>
+        <div style="padding-bottom: 10px;">Tuesday : {{ tue_time_from }} - {{ tue_time_to }}<span style="margin-left: 40px;"><input name="tue_time_toggle" type="checkbox" {% if request.user.tue_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="tue_time" id="sch_tue" type="text"/>
+    </div>     <br><br>
+    <div>
+        <div style="padding-bottom: 10px;">Wednesday : {{ wed_time_from }} - {{ wed_time_to }}<span style="margin-left: 40px;"></span><input name="wed_time_toggle" type="checkbox" {% if request.user.wed_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="wed_time" id="sch_wed" type="text"/>
+
+    </div>     <br><br>
+    <div>
+        <div style="padding-bottom: 10px;">Thursday : {{ thu_time_from }} - {{ thu_time_to }}<span style="margin-left: 40px;"><input name="thu_time_toggle" type="checkbox" {% if request.user.thu_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="thu_time" id="sch_thu" type="text"/>
+        
+    </div>     <br><br>
+    <div>
+        <div style="padding-bottom: 10px;">Friday : {{ fri_time_from }} - {{ fri_time_to }}<span style="margin-left: 40px;"><input name="fri_time_toggle" type="checkbox" {% if request.user.fri_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="fri_time" id="sch_fri" type="text"/>
+        
+    </div>     <br><br>
+    <div>
+        <div style="padding-bottom: 10px;">Saturday : {{ sat_time_from }} - {{ sat_time_to }}<span style="margin-left: 40px;"><input name="sat_time_toggle" type="checkbox" {% if request.user.sat_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="sat_time" id="sch_sat" type="text"/>
+        
+    </div>     <br><br>
+    <div>
+        <div style="padding-bottom: 10px;">Sunday : {{ sun_time_from }} - {{ sun_time_to }}<span style="margin-left: 40px;"><input name="sun_time_toggle" type="checkbox" {% if request.user.sun_time_toggle %} checked {% endif %} data-toggle="toggle"/></span></div>
+        <input name="sun_time" id="sch_sun" type="text"/>
+        
+    </div>
+    <input class="btn btn-primary" type="submit" value="SAVE SCHEDULE">
+</form>     <br><br>
+<br><br>
+<script>
+        const reg = /\d.*\d/
+        var mon_time_from = "{{ mon_time_from }}";
+        var mon_time_to = "{{ mon_time_to }}";
+        var tue_time_from = "{{ tue_time_from }}";
+        var tue_time_to = "{{ tue_time_to }}";
+        var wed_time_from = "{{ wed_time_from }}";
+        var wed_time_to = "{{ wed_time_to }}";
+        var thu_time_from = "{{ thu_time_from }}";
+        var thu_time_to = "{{ thu_time_to }}";
+        var fri_time_from = "{{ fri_time_from }}";
+        var fri_time_to = "{{ fri_time_to }}";
+        var sat_time_from = "{{ sat_time_from }}";
+        var sat_time_to = "{{ sat_time_to }}";
+        var sun_time_from = "{{ sun_time_from }}";
+        var sun_time_to = "{{ sun_time_to }}";
+        $("#sch_mon").slider({ min: 0, max: 24, value: [parseInt(mon_time_from.split(":")[0]), parseInt(mon_time_to.split(":")[0])], focus: true, formatter: function(value) { var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+        $("#sch_tue").slider({ min: 0, max: 24, value: [parseInt(tue_time_from.split(":")[0]), parseInt(tue_time_to.split(":")[0])], focus: true, formatter: function(value) { var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+        $("#sch_wed").slider({ min: 0, max: 24, value: [parseInt(wed_time_from.split(":")[0]), parseInt(wed_time_to.split(":")[0])], focus: true, formatter: function(value) { var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+        $("#sch_thu").slider({ min: 0, max: 24, value: [parseInt(thu_time_from.split(":")[0]), parseInt(thu_time_to.split(":")[0])], focus: true, formatter: function(value) { var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+        $("#sch_fri").slider({ min: 0, max: 24, value: [parseInt(fri_time_from.split(":")[0]), parseInt(fri_time_to.split(":")[0])], focus: true, formatter: function(value) { var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+        $("#sch_sat").slider({ min: 0, max: 24, value: [parseInt(sat_time_from.split(":")[0]), parseInt(sat_time_to.split(":")[0])], focus: true, formatter: function(value) { var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+        $("#sch_sun").slider({ min: 0, max: 24, value: [parseInt(sun_time_from.split(":")[0]), parseInt(sun_time_to.split(":")[0])], focus: true , formatter: function(value){ var values = value.toString().split(","); return 'Current value: ' +values[0]+ ':00,'+values[1]+':00' }  });
+</script>
+{% include "footer.html" %}
+{% endblock %}

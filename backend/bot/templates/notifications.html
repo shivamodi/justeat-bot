@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h2>Notification Preferences</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'savenotifications' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="hidden" name="user_id" value="{{ request.user.id }}">
+            <input type="email" name="email_notif" value="{{ request.user.email_notif }}" placeholder="Email Address">
+            <span style="margin-left: 40px;"><input name="email_notif_toggle" type="checkbox" {% if request.user.email_notif_toggle %} checked {% endif %} data-toggle="toggle"></span>
+        </div>
+        <div class="form-group">
+            <input type="mobile" name="mobile_notif" value="{{ request.user.mobile_notif }}" placeholder="Mobile Number">
+            <span style="margin-left: 40px;"><input type="checkbox" name="mobile_notif_toggle" {% if request.user.mobile_notif_toggle %} checked {% endif %} data-toggle="toggle"></span>
+        </div>
+        <input class="btn btn-primary" type="submit" value="SAVE">
+    </form>
+
+    {% include "footer.html" %}
+{% endblock %}

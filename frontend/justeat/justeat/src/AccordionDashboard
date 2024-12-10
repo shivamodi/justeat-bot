@@ -1,0 +1,155 @@
+import React, { useState } from 'react';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Switch, FormControlLabel } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+import { FaClipboardList, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+
+const AccordionDashboard = () => {
+  // State to manage toggle switches
+  const [openRun, setOpenRun] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+
+  const handleOpenRunToggle = (event) => setOpenRun(event.target.checked);
+  const handleOverflowsToggle = (event) => setOverflows(event.target.checked);
+
+  // Inline styles for dark theme
+  const styles = {
+    container: {
+      padding: '20px',
+      backgroundColor: '#121212',
+      color: '#fff',
+      minHeight: '100vh',
+    },
+    accordionHeader: {
+      backgroundColor: '#1c1c1c',
+      color: '#fff',
+      fontWeight: 'bold',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '10px',
+    },
+    accordionDetails: {
+      backgroundColor: '#333',
+      color: '#fff',
+      padding: '10px',
+    },
+    switch: {
+      color: '#fff',
+    },
+    icon: {
+      marginRight: '10px',
+    },
+    formControlLabel: {
+      marginLeft: 'auto',
+    },
+  };
+
+  return (
+    <div style={styles.container}>
+      <Typography variant="h4" gutterBottom>
+        Dashboard
+      </Typography>
+
+      {/* Logs Section */}
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="logs-content"
+          id="logs-header"
+          style={styles.accordionHeader}
+        >
+          <FaClipboardList style={styles.icon} />
+          <Typography>Logs</Typography>
+        </AccordionSummary>
+        <AccordionDetails style={styles.accordionDetails}>
+          <Typography>Logs data goes here.</Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Schedule Section */}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="schedule-content"
+          id="schedule-header"
+          style={styles.accordionHeader}
+        >
+          <FaCalendarAlt style={styles.icon} />
+          <Typography>Schedule</Typography>
+        </AccordionSummary>
+        <AccordionDetails style={styles.accordionDetails}>
+          <Typography>Schedule data goes here.</Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Zones Section */}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="zones-content"
+          id="zones-header"
+          style={styles.accordionHeader}
+        >
+          <FaMapMarkerAlt style={styles.icon} />
+          <Typography>Zones</Typography>
+        </AccordionSummary>
+        <AccordionDetails style={styles.accordionDetails}>
+          <Typography>Zone information goes here.</Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Open Run Toggle Section */}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="open-run-content"
+          id="open-run-header"
+          style={styles.accordionHeader}
+        >
+          <Typography>Open Run Toggle</Typography>
+        </AccordionSummary>
+        <AccordionDetails style={styles.accordionDetails}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={openRun}
+                onChange={handleOpenRunToggle}
+                name="openRun"
+                style={styles.switch}
+              />
+            }
+            label={openRun ? 'Yes' : 'No'}
+            style={styles.formControlLabel}
+          />
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Overflows Toggle Section */}
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="overflows-content"
+          id="overflows-header"
+          style={styles.accordionHeader}
+        >
+          <Typography>Overflows Toggle</Typography>
+        </AccordionSummary>
+        <AccordionDetails style={styles.accordionDetails}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={overflows}
+                onChange={handleOverflowsToggle}
+                name="overflows"
+                style={styles.switch}
+              />
+            }
+            label={overflows ? 'Yes' : 'No'}
+            style={styles.formControlLabel}
+          />
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+};
+
+export default AccordionDashboard;

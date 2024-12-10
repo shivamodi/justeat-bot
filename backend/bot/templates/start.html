@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% load pinax_referrals_tags %}
+
+    <h2>Start Grabbing</h2>{{ allow_whatsapp }}
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <form action="{% url 'startprocess' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="typstart" id="typstart" value="START">
+        </div>
+        <input class="btn btn-primary" type="submit" value="START">
+    </form>
+    
+    <form action="{% url 'startprocess' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="typs" id="typs" value="STOP">
+            <input class="form-control" type="hidden" name="pid" id="pid" value="{{ pid }}">        
+        </div>
+        <input class="btn btn-primary" type="submit" value="STOP">
+    </form>
+
+    {% include "footer.html" %}
+{% endblock %}

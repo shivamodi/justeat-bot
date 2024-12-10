@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% load pinax_referrals_tags %}
+
+    <h2>Referrals</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    Referral
+    {% if referral_code %}
+        {{ referral_code }}
+    {% else %}
+        {% create_referral object.get_absolute_url object %}
+    {% endif %}
+
+    {% referral_responses user as responses %}
+        <table align="center"><tr><td align="center">REFERRED EMAIL</td><td align="center">IP ADDRESS</td><td align="center">ACTION</td><td align="center">HTTP REFERRER</td></tr>
+    {% for response in responses %}
+        <tr><td>{{ response.user }}</td><td>{{ response.ip_address }}</td><td>{{ response.action }}</td><td>{{ response.http_referrer }}</td></tr>
+    {% endfor %}
+        </table>    
+    
+    {% include "footer.html" %}
+{% endblock %}
